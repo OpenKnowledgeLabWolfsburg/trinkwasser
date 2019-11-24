@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trinkwasser
+  labels:
+    app: trinkwasser
+  namespace: trinkwasser
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trinkwasser
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: trinkwasser
+        tier: frontend
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: trinkwasser
+        image: spl-docker.docker.wob.vw.vwg/dev/trinkwasser:latest
+        imagePullPolicy: "Always"
+        env:
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: database
+              key: username          
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database
+              key: password          
+        - name: DB_URL
+          value: jdbc:mysql://trinkwasser-db:3306/trinkwasser?useLegacyDatetimeCode=false&serverTimezone=CET
+        - name: CONTEXT_PATH
+          value: /trinkwasser
+        livenessProbe:
+          httpGet:
+            path: /trinkwasser/monitoring/health
+            port: 8080
+            periodSeconds: 10
+            initialDelaySeconds: 5
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: regcred

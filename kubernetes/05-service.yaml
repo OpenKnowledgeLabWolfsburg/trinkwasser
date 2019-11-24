@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: trinkwasser
+  labels:
+    app: trinkwasser
+    tier: frontend
+  namespace: trinkwasser
+spec:
+  ports:
+    - port: 8082
+      targetPort: 8080
+  selector:
+    app: trinkwasser
+    tier: frontend
+  externalIPs:
+  - 10.29.8.34
+

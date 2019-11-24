@@ -1,0 +1,63 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: trinkwasser-db
+  labels:
+    app: trinkwasser-db
+  namespace: trinkwasser
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: trinkwasser-db
+    tier: databases
+  clusterIP: None
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trinkwasser-db
+  labels:
+    app: trinkwasser-db
+  namespace: trinkwasser
+spec:
+  selector:
+    matchLabels:
+      app: trinkwasser-db
+      tier: databases
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: trinkwasser-db
+        tier: databases
+    spec:
+      nodeSelector:
+        type: db
+      containers:
+      - image: mariadb:latest
+        name: trinkwasser-db
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database
+              key: root_password
+        - name: MYSQL_DATABASE
+          value: trinkwasser
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: database
+              key: username 
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database
+              key: password
+        ports:
+        - containerPort: 3306
+          name: trinkwasser-db
+

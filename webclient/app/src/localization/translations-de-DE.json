@@ -1,0 +1,34 @@
+{
+    "app.title":  "Trinkwasserqualität",
+    "button.create": "Anlegen",
+    "button.update": "Updaten",
+    "button.delete": "Löschen",
+    "button.submit": "Bestätigen",
+    "button.back": "Zurück",
+    "form.create": "{{entity}} anlegen",
+    "form.update": "{{entity}} updaten",
+
+    "city": "City",
+    "city.title": "CityAll",
+    "city.id": "id",
+	"city.name": "name",
+    "district": "District",
+    "district.title": "DistrictAll",
+    "district.id": "id",
+	"district.name": "name",
+    "data": "Data",
+    "data.title": "DataAll",
+    "data.id": "id",
+	"data.sulfate": "sulfate",
+	"data.chloride": "chloride",
+	"data.hardness": "hardness",
+	"data.natrium": "natrium",
+	"data.nitrate": "nitrate",
+	"data.magnesium": "magnesium",
+	"data.calcium": "calcium",
+	"data.potassium": "potassium",
+
+    "###GENERATION###" : "Generierung",
+
+    "home.title": "Home"
+}
