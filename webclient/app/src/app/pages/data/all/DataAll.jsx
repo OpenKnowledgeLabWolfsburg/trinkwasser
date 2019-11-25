@@ -29,15 +29,17 @@ class DataAll extends Component {
         const {t} = this.props;
 
         const columns = [
-            {title: t('data.sulfate'), field: 'sulfate'},
-            {title: t('data.chloride'), field: 'chloride'},
-            {title: t('data.hardness'), field: 'hardness'},
+            {title: t('city.name'), field: 'district.city.name'},
+            {title: t('district.name'), field: 'district.name'},
             {title: t('data.natrium'), field: 'natrium'},
-            {title: t('data.nitrate'), field: 'nitrate'},
-            {title: t('data.magnesium'), field: 'magnesium'},
-            {title: t('data.calcium'), field: 'calcium'},
             {title: t('data.potassium'), field: 'potassium'},
-            {title: t('district.name'), field: 'district.name'}          ];
+            {title: t('data.calcium'), field: 'calcium'},
+            {title: t('data.magnesium'), field: 'magnesium'},
+            {title: t('data.chloride'), field: 'chloride'},
+            {title: t('data.nitrate'), field: 'nitrate'},
+            {title: t('data.sulfate'), field: 'sulfate'},
+            {title: t('data.hardness'), field: 'hardness'},
+        ];
 
         this.setState({columns: columns});
         this.fetchAll();
