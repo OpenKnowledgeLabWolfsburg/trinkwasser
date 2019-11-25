@@ -29,7 +29,9 @@ class DistrictAll extends Component {
         const {t} = this.props;
 
         const columns = [
-            {title: t('district.name'), field: 'name'}        ];
+            {title: t('district.name'), field: 'name'},
+            {title: t('city.name'), field: 'city.name'}  
+        ];
 
         this.setState({columns: columns});
         this.fetchAll();

@@ -1,8 +1,7 @@
 const AddUpdateFormStyles = theme => ({
-    textField: {
+    marginInput: {
         marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: 500
+        marginBottom: theme.spacing.unit * 4,
     }
 });
 

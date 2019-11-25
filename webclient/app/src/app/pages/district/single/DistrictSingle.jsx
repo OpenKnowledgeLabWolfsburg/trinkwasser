@@ -7,24 +7,37 @@ import Typography from "@material-ui/core/Typography";
 
 import {withTranslation} from "react-i18next";
 
+import CityRest from "../../../services/CityRest";
+
 class DistrictSingle extends Component {
 
     state = {
         district: {
-            name: ""}
-        ,
+            name: "",
+            city: null    
+        },
+        attributes: [
+            {name: "name", type: "string"},
+            {name: "city", type: "select", items: []}
+        ],
         titleKey: ""
     };
 
     districtRest = new DistrictRest();
 
-    attributes = [
-    {name: "name", type: "string"}    ];
-
     componentDidMount = () => {
         let updateResult = this.checkUpdate();
         this.submitFunction = updateResult.submitFunction;
-        this.setState({titleKey: updateResult.titleKey});
+
+        let cityRest = new CityRest();
+        cityRest.findAll().then(
+            response => {
+                let attributes = this.state.attributes;
+                attributes[1].items = response.data;
+                this.setState({attributes, titleKey: updateResult.titleKey})
+            }, 
+            err => console.error(err)
+        );
     };
 
     render() {
@@ -40,7 +53,7 @@ class DistrictSingle extends Component {
                 <Typography variant="h1" color="primary">{t(this.state.titleKey, {entity: t('district')})}</Typography>
                 <AddUpdateForm
                     entity={this.state.district}
-                    attributes={this.attributes}
+                    attributes={this.state.attributes}
                     prefix='district'
                     handleSubmit={this.handleSubmit}
                     handleChange={this.handleChange}
@@ -88,13 +101,6 @@ class DistrictSingle extends Component {
         event.preventDefault();
 
         let district = this.state.district;
-
-        this.attributes.forEach(attribute => {
-           if (attribute.type === "time") {
-               let date = new Date("1970-01-01T" + this.state.district[attribute.name]);
-               district[attribute.name] = date.toISOString();
-           }
-        });
 
         this.submitFunction(district).then(this.goBack);
     };

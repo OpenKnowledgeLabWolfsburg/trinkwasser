@@ -20,12 +20,24 @@ class AllTable extends Component {
                 <TableBody>
                     {entities.map(entity =>
                         <TableRow key={entity.id} onClick={() => onRowClick(entity)} selected={selected && entity.id === selected.id}>
-                            {columns.map(column => <TableCell key={entity.id + "." + column.field}>{entity[column.field]}</TableCell>)}
+                            {columns.map(column => <TableCell key={entity.id + "." + column.field}>{this.getAttributeByString(entity, column.field)}</TableCell>)}
                         </TableRow>
                     )}
                 </TableBody>
             </Table>
         );
+    }
+
+    getAttributeByString = (object, attribute, defaultValue) => {
+        let result = object;
+        attribute.split(".").forEach(element => {
+            if (result[element] !== undefined) {
+                result = result[element];
+            } else {
+                return defaultValue;
+            }
+        });
+        return result;
     }
 }
 

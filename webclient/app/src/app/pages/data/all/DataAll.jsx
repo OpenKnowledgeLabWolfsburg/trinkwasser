@@ -36,7 +36,8 @@ class DataAll extends Component {
             {title: t('data.nitrate'), field: 'nitrate'},
             {title: t('data.magnesium'), field: 'magnesium'},
             {title: t('data.calcium'), field: 'calcium'},
-            {title: t('data.potassium'), field: 'potassium'}        ];
+            {title: t('data.potassium'), field: 'potassium'},
+            {title: t('district.name'), field: 'district.name'}          ];
 
         this.setState({columns: columns});
         this.fetchAll();

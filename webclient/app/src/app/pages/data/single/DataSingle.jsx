@@ -6,38 +6,53 @@ import AddUpdateForm from "../../../commons/form/AddUpdateForm";
 import Typography from "@material-ui/core/Typography";
 
 import {withTranslation} from "react-i18next";
+import DistrictRest from '../../../services/DistrictRest';
 
 class DataSingle extends Component {
 
     state = {
         data: {
             sulfate: "",
-                    chloride: "",
-                    hardness: "",
-                    natrium: "",
-                    nitrate: "",
-                    magnesium: "",
-                    calcium: "",
-                    potassium: ""}
-        ,
+            chloride: "",
+            hardness: "",
+            natrium: "",
+            nitrate: "",
+            magnesium: "",
+            calcium: "",
+            potassium: "",
+            district: null
+        },
+        attributes: [
+            {name: "sulfate", type: "number", inputProps: {step: "0.01"}},
+            {name: "chloride", type: "number", inputProps: {step: "0.01"}},
+            {name: "natrium", type: "number", inputProps: {step: "0.01"}},
+            {name: "nitrate", type: "number", inputProps: {step: "0.01"}},
+            {name: "magnesium", type: "number", inputProps: {step: "0.01"}},
+            {name: "calcium", type: "number", inputProps: {step: "0.01"}},
+            {name: "potassium", type: "number", inputProps: {step: "0.01"}},
+            {name: "hardness", type: "string"},
+            {name: "district", type: "select", items: []}
+        ],
         titleKey: ""
     };
 
     dataRest = new DataRest();
 
-    attributes = [
-    {name: "sulfate", type: "number", inputProps: {step: "0.01"}},
-    {name: "chloride", type: "number", inputProps: {step: "0.01"}},
-    {name: "hardness", type: "string"},
-    {name: "natrium", type: "number", inputProps: {step: "0.01"}},
-    {name: "nitrate", type: "number", inputProps: {step: "0.01"}},
-    {name: "magnesium", type: "number", inputProps: {step: "0.01"}},
-    {name: "calcium", type: "number", inputProps: {step: "0.01"}},
-    {name: "potassium", type: "number", inputProps: {step: "0.01"}}    ];
-
     componentDidMount = () => {
         let updateResult = this.checkUpdate();
         this.submitFunction = updateResult.submitFunction;
+
+        let districtRest = new DistrictRest();
+
+        districtRest.findAll().then(
+            response => {
+                let attributes = this.state.attributes;
+                attributes[8].items = response.data;
+                this.setState({attributes, titleKey: updateResult.titleKey})
+            }, 
+            err => {console.error(err)}
+        );
+
         this.setState({titleKey: updateResult.titleKey});
     };
 
@@ -54,7 +69,7 @@ class DataSingle extends Component {
                 <Typography variant="h1" color="primary">{t(this.state.titleKey, {entity: t('data')})}</Typography>
                 <AddUpdateForm
                     entity={this.state.data}
-                    attributes={this.attributes}
+                    attributes={this.state.attributes}
                     prefix='data'
                     handleSubmit={this.handleSubmit}
                     handleChange={this.handleChange}
@@ -102,13 +117,6 @@ class DataSingle extends Component {
         event.preventDefault();
 
         let data = this.state.data;
-
-        this.attributes.forEach(attribute => {
-           if (attribute.type === "time") {
-               let date = new Date("1970-01-01T" + this.state.data[attribute.name]);
-               data[attribute.name] = date.toISOString();
-           }
-        });
 
         this.submitFunction(data).then(this.goBack);
     };
