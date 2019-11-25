@@ -1,4 +1,4 @@
-# lirejarp @ spring
+# Trinkwasser
 
 ## Structure
 The project is structured into five submodules:
