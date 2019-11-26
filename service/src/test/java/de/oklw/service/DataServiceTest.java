@@ -3,6 +3,8 @@ package de.oklw.service;
 import de.oklw.persistence.entity.Data;
 import de.oklw.persistence.repository.DataRepository;
 import de.oklw.service.impl.DataService;
+import de.oklw.service.impl.DistrictService;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -51,6 +53,9 @@ public class DataServiceTest {
      */
     @MockBean
     private DataRepository dataRepository;
+
+    @MockBean
+    private DistrictService districtService;
 
     @Before
     public void setUp() {

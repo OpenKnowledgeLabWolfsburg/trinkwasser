@@ -2,6 +2,7 @@ package de.oklw.service;
 
 import de.oklw.persistence.entity.District;
 import de.oklw.persistence.repository.DistrictRepository;
+import de.oklw.service.impl.CityService;
 import de.oklw.service.impl.DistrictService;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,6 +52,9 @@ public class DistrictServiceTest {
      */
     @MockBean
     private DistrictRepository districtRepository;
+    
+    @MockBean
+    private CityService cityService;
 
     @Before
     public void setUp() {
