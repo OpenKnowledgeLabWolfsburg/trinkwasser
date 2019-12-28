@@ -3,7 +3,7 @@ import axios from 'axios';
 class VersionRest {
 
     constructor() {
-        this.baseUrl = window.location.pathname + "/monitoring";
+        this.baseUrl = window.location.pathname + "monitoring";
     }
     
     info = () => {
