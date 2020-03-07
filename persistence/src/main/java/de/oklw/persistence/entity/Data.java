@@ -1,5 +1,7 @@
 package de.oklw.persistence.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -14,7 +16,9 @@ import javax.persistence.Table;
 @Table(name = "DATA")
 public class Data extends AbstractEntity<Long> {
 
-//domain attributes
+    @Column(name="DATEOFMEASUREMENT")
+    private Date dateOfMeasurement;
+
     @Column(name="SULFATE")
 	private Double sulfate;
 	
@@ -114,5 +118,12 @@ public class Data extends AbstractEntity<Long> {
     public void setDistrict(District district) {
         this.district = district;
     }
-        
+
+	public Date getDateOfMeasurement() {
+		return dateOfMeasurement;
+	}
+
+	public void setDateOfMeasurement(Date dateOfMeasurement) {
+		this.dateOfMeasurement = dateOfMeasurement;
+	}       
 }
